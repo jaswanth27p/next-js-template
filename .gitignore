@@ -42,3 +42,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.agents
+skills-lock.json
+.superpowers
+/ai
+
+# prisma generated client
+/app/generated

@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Full-Stack Template
 
-## Getting Started
+Starter template: Next.js App Router, shadcn/ui (Base UI primitives), Tailwind v4, next-themes, zustand, TanStack Query, Prisma + Postgres, Zod, custom JWT email/password auth.
 
-First, run the development server:
+See [AGENTS.md](./AGENTS.md) for folder structure and coding rules to follow when adding new files.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Getting started
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   pnpm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Copy the env file and adjust as needed:
 
-## Learn More
+   ```bash
+   cp .env.example .env
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Start local Postgres:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   docker compose up -d
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Push the schema to the database and generate the Prisma client:
 
-## Deploy on Vercel
+   ```bash
+   pnpm prisma db push
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Start the dev server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   pnpm dev
+   ```
+
+Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to `/login`. Register an account to reach the dashboard.
+
+## Stack notes
+
+- **Auth**: custom bcrypt + JWT (jose) in an httpOnly cookie, guarded by `middleware.ts`. Not tied to Next.js — the same JWT can be verified from a separate NestJS/Python backend later via a shared `JWT_SECRET`.
+- **UI**: shadcn/ui on Base UI primitives (not Radix). Components use the `render` prop for polymorphism instead of `asChild`.
+- **DB**: Prisma 7 with the `@prisma/adapter-pg` driver adapter — see `lib/prisma.ts` and `prisma.config.ts`.
