@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronsUpDown, LogOut, User as UserIcon } from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings, User as UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -91,10 +91,16 @@ export function NavUser({ user }: { user: PublicUser }) {
               </DropdownMenuLabel>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem render={<a href="/profile" />}>
-              <UserIcon />
-              Profile
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuItem render={<a href="/profile" />}>
+                <UserIcon />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<a href="/settings" />}>
+                <Settings />
+                Settings
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />

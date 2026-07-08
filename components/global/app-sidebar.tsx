@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Settings, User, Command } from "lucide-react";
+import { LayoutDashboard, Command } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -22,8 +22,6 @@ import type { PublicUser } from "@/types/user";
 
 const NAV_ITEMS = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Settings", url: "/settings", icon: Settings },
-  { title: "Profile", url: "/profile", icon: User },
 ];
 
 export function AppSidebar({
@@ -68,21 +66,22 @@ export function AppSidebar({
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  tooltip="Search (⌘K)"
-                  onClick={() => setCommandMenuOpen(true)}
-                >
-                  <Command />
-                  <span>Search</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <div className="flex items-center justify-between gap-2 px-1 group-data-[collapsible=icon]:flex-col">
+          <SidebarMenuButton
+            className="w-auto"
+            tooltip="Search (⌘K)"
+            onClick={() => setCommandMenuOpen(true)}
+          >
+            <Command />
+            <span className="group-data-[collapsible=icon]:hidden">
+              Search
+            </span>
+          </SidebarMenuButton>
           <ThemeToggle />
         </div>
         <NavUser user={user} />
