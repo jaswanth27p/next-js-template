@@ -47,6 +47,8 @@ next-env.d.ts
 skills-lock.json
 .superpowers
 /ai
+.playwright
+.playwright-cli
 
 # prisma generated client
 /app/generated
